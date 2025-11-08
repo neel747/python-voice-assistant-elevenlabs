@@ -2,7 +2,7 @@ import signal
 import sys
 from .audio_io import record_wav
 from .stt_whisper_local import transcribe_file
-from .nlp_local import chat_reply
+from .nlp_groq import chat_reply
 from .tts_elevenlabs import speak
 
 
