@@ -1,15 +1,7 @@
-# Ignore virtual environments and Python cache
+.env
 .venv/
 __pycache__/
 *.pyc
-
-# macOS system files
 .DS_Store
-
-# VS Code and IDE settings
 .vscode/
 .idea/
-
-# Don't commit environment files
-.env
-.env
