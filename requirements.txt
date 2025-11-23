@@ -1,5 +1,8 @@
-elevenlabs>=1.0.0
-openai>=1.40.0
 python-dotenv>=1.0.0
 pyaudio
 soundfile
+requests
+gTTS
+faster-whisper
+pvporcupine
+pvrecorder

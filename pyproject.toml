@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-voice-assistant"
+version = "0.1.0"
+description = "A real-time voice assistant using Faster Whisper, Groq, and gTTS"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Neel", email = "neel@example.com"}
+]
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "pyaudio",
+    "soundfile",
+    "requests",
+    "gTTS",
+    "faster-whisper",
+    "pvporcupine",
+    "pvrecorder"
+]
+
+[project.urls]
+Homepage = "https://github.com/neel747/python-voice-assistant-elevenlabs"

@@ -1,39 +1,41 @@
+# src/app.py
 import signal
 import sys
-from .audio_io import record_wav
-from .stt_whisper_local import transcribe_file
-from .nlp_groq import chat_reply
-from .tts_elevenlabs import speak
+import tkinter as tk
+import traceback
 
+from .logger import logger
+from .settings import SettingsManager
+from .gui import VoiceAssistantGUI
 
 def _shutdown(*_):
-    print("\n👋 Bye!")
+    logger.info("👋 Bye!")
     sys.exit(0)
 
-
 def main():
+    # Clean exit on Ctrl+C / kill
     signal.signal(signal.SIGINT, _shutdown)
     signal.signal(signal.SIGTERM, _shutdown)
 
-    print("🎙️ Real-Time Voice Assistant (OpenAI + ElevenLabs)")
-    print("Press ENTER to record (~6s), or type 'q' + ENTER to quit.\n")
-
-    while True:
-        cmd = input("> ").strip().lower()
-        if cmd == "q":
-            _shutdown()
-
-        record_wav()  # records to tmp_input.wav
-        user_text = transcribe_file()
-        if not user_text:
-            print("🤷 No speech recognized. Try again.")
-            continue
-
-        print(f"🧑 You: {user_text}")
-        bot_reply = chat_reply(user_text)
-        print(f"🤖 Assistant: {bot_reply}")
-        speak(bot_reply)
-
+    logger.info("🚀 Launching Voice Assistant (MVC)...")
+    
+    try:
+        # 1. Initialize Settings
+        settings_manager = SettingsManager()
+        
+        # 2. Initialize GUI
+        root = tk.Tk()
+        logger.info("✅ Tkinter root created.")
+        
+        app = VoiceAssistantGUI(root, settings_manager)
+        logger.info("✅ App initialized. Entering mainloop...")
+        
+        root.mainloop()
+        logger.info("👋 Mainloop exited.")
+        
+    except Exception as e:
+        logger.error(f"❌ App Error: {e}")
+        traceback.print_exc()
 
 if __name__ == "__main__":
     main()
